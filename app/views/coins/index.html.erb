@@ -1,0 +1,21 @@
+<p id= style="color: green"><%= notice %></p>
+
+<h1>Moedas</h1>
+<table>
+<div id="coins">
+  <tbody>
+    <% @coins.each do |coin| %>
+      <tr>
+        <td><%= render coin %></td>
+        <td><%= link_to "Mostar essa moeda", coin %> |</td>
+        <td><%= link_to "Editar", edit_coin_path(coin) %> |</td> 
+        <td><%= link_to "Apagar", coin, data: { 'turbo-method': :delete, 'turbo-confirm': 'Tem certeza?' } %> </td>
+      </tr>
+  <% end %>
+  <tbody>
+</div>
+</table>
+<br>
+
+<%= link_to "Cadastrar uma nova moeda", new_coin_path %>
+
