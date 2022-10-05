@@ -27,7 +27,7 @@ namespace :dev do
           description: "Bitcoin",
           acronym: "BTC",
           url_image: "https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Bitcoin-PNG.png",
-          mining_type: MiningType.all.sample
+          mining_type: MiningType.find_by(acronym: 'PoW')
         },
 
         {
@@ -74,7 +74,7 @@ namespace :dev do
   task add_mining_types: :environment do
     show_spinner("Cadastrando tipo de mineiração...") do
       mining_types = [
-        {description:"Proof of Work", acronym: "Pow"},
+        {description:"Proof of Work", acronym: "PoW"},
         {description:"Proof of Stake", acronym: "PoS"},
         {description:"Proof of Capacity", acronym: "PoC"}
       ]
