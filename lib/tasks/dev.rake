@@ -7,8 +7,9 @@ namespace :dev do
       end
       show_spinner("Criando BD...") { %x(rails db:create) } #Forma de reduzir ainda mais o Código
       show_spinner("Migrando Tabelas...") { %x(rails db:migrate) }
-      %x(rails dev:add_coins)
       %x(rails dev:add_mining_types)
+      %x(rails dev:add_coins)
+      
   
     else
       puts "Você não está em ambiente de desenvolvimento!"
@@ -19,48 +20,59 @@ namespace :dev do
   desc "Cadastra as moedas"
   task add_coins: :environment do
     show_spinner("Cadastrando moedas...") do
+    
       coins = [
 
         {
           description: "Bitcoin",
           acronym: "BTC",
-          url_image: "https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Bitcoin-PNG.png"
+          url_image: "https://imagensemoldes.com.br/wp-content/uploads/2020/09/Logo-Bitcoin-PNG.png",
+          mining_type: MiningType.all.sample
         },
 
         {
           description: "Ethereum",
           acronym: "ETH",
-          url_image: "https://w7.pngwing.com/pngs/268/1013/png-transparent-ethereum-eth-hd-logo-thumbnail.png"
+          url_image: "https://w7.pngwing.com/pngs/268/1013/png-transparent-ethereum-eth-hd-logo-thumbnail.png",
+          mining_type: MiningType.all.sample
+
         },
 
         {
           description: "Dash",
           acronym: "DASH",
-          url_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBCRnYfsVucKrAJ27qkTVHL8aSTN5ucKHL2Sa-eVqZVg&s"
+          url_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBCRnYfsVucKrAJ27qkTVHL8aSTN5ucKHL2Sa-eVqZVg&s",
+          mining_type: MiningType.all.sample
+
         },
 
         {
           description: "Iota",
           acronym: "IOT",
-          url_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu5t32U4-ke52xz-JIC-fsUSwZK_mVzGdVnW_E3FXGd7_0fQBT9JaYx_XtYoGXsPst1B0&usqp=CAU"
+          url_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu5t32U4-ke52xz-JIC-fsUSwZK_mVzGdVnW_E3FXGd7_0fQBT9JaYx_XtYoGXsPst1B0&usqp=CAU",
+          mining_type: MiningType.all.sample
+
         },
 
         {
           description: "ZCash",
           acronym: "ZEC",
-          url_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkRL7oZ4vpPewFw6IGh1XQ5F6tNsBvVwJPMwFrHRmZH7JHUXqyB1O60U7-pJVs-AKzVS0&usqp=CAU"
-        }   
-      ]
+          url_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkRL7oZ4vpPewFw6IGh1XQ5F6tNsBvVwJPMwFrHRmZH7JHUXqyB1O60U7-pJVs-AKzVS0&usqp=CAU",
+          mining_type: MiningType.all.sample
 
-      coins.each do |coin|
-        Coin.find_or_create_by!(coin)
-      end
+        }   
+      ] 
+    
+
+        coins.each do |coin|
+          Coin.find_or_create_by!(coin)
+        end   
     end
   end
 
   desc "Cadastra os tipos de mineração"
   task add_mining_types: :environment do
-    show_spinner("Cadastrando tipod de mineiração...") do
+    show_spinner("Cadastrando tipo de mineiração...") do
       mining_types = [
         {description:"Proof of Work", acronym: "Pow"},
         {description:"Proof of Stake", acronym: "PoS"},
