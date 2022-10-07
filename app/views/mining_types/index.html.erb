@@ -1,12 +1,15 @@
 <p style="color: green"><%= notice %></p>
 
+<p><%= link_to "Voltar par o Menu", welcome_index_path %></p>
 <h1>Mining types</h1>
 
 <div id="mining_types">
   <% @mining_types.each do |mining_type| %>
     <%= render mining_type %>
     <p>
-      <%= link_to "Show this mining type", mining_type %>
+      <%= link_to t('links.show'), mining_type %> |
+      <%= link_to t('links.edit'), edit_mining_type_path(mining_type) %> 
+      <%= button_to t('links.delete'), @mining_type, method: :delete %>
     </p>
   <% end %>
 </div>
